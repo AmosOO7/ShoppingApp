@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { useOAuth } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking";
@@ -23,14 +23,14 @@ const LoginScreen = () => {
     }
   }, []);
   return (
-    <View>
+    <ScrollView>
       <Image
         source={require("../../../assets/images/ProjectImages/ecommerce.png")}
         className="w-full h-[60%] object-cover"
       />
       <View className="p-[8vw] bg-white mt-[-7vh] rounded-t-3xl h-[50vh]">
         <Text className="text-[7vw] text-center">E-Commerca</Text>
-        <Text className="text-[3vw] text-slate-500 mt-6">
+        <Text className="text-[3vw] text-slate-500 mt-6 text-center">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta
           corrupti tempora, eum dolor earum optio nobis id cum ipsa, molestiae
           ut placeat ex amet consequatur. Tenetur dolorum similique consequatur
@@ -43,7 +43,7 @@ const LoginScreen = () => {
           <Text className="text-white text-center text-[3vw]">Get Started</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
