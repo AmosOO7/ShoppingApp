@@ -12,13 +12,29 @@ import {
 } from "react-native";
 import LoginScreen from "./Screens/LoginScreen";
 import ItemsScreen from "./Screens/ItemsScreen";
+import {
+  ClerkProvider,
+  ClerkLoaded,
+  SignedIn,
+  SignedOut,
+  useUser,
+} from "@clerk/clerk-expo";
+import { Slot } from "expo-router";
+import { Link } from "expo-router";
+import SignInWithOAuth from "./Components/SignInWithOAuth";
+import TabNav from "./Navigations/TabNav";
+import { NavigationContainer } from "@react-navigation/native";
 
 const index = () => {
+  const { user } = useUser();
   return (
     <View className="flex-1">
-      <ScrollView>
-        <ItemsScreen />
-      </ScrollView>
+      <SignedIn>
+        <TabNav />
+      </SignedIn>
+      <SignedOut>
+        <LoginScreen />
+      </SignedOut>
     </View>
   );
 };

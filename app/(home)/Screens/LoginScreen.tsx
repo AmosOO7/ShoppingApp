@@ -1,7 +1,27 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { useOAuth } from "@clerk/clerk-expo";
+import * as Linking from "expo-linking";
 
 const LoginScreen = () => {
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+
+  const onPress = React.useCallback(async () => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow({
+          redirectUrl: Linking.createURL("/dashboard", { scheme: "myapp" }),
+        });
+
+      if (createdSessionId) {
+        setActive!({ session: createdSessionId });
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  }, []);
   return (
     <View>
       <Image
@@ -16,7 +36,10 @@ const LoginScreen = () => {
           ut placeat ex amet consequatur. Tenetur dolorum similique consequatur
           maxime!
         </Text>
-        <TouchableOpacity className="p-4 w-full bg-blue-500 mt-[4vh] rounded-full">
+        <TouchableOpacity
+          onPress={onPress}
+          className="p-4 w-full bg-blue-500 mt-[4vh] rounded-full"
+        >
           <Text className="text-white text-center text-[3vw]">Get Started</Text>
         </TouchableOpacity>
       </View>
