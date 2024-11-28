@@ -29,7 +29,7 @@ export default function Slider(prop: any) {
         ref={flatListRef} // Attach ref to FlatList
         data={sliderList}
         horizontal={true}
-        showsHorizontalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
         pagingEnabled={true}
         renderItem={({ item }) => (
           <View>

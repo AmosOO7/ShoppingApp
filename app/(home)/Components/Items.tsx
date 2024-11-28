@@ -1,7 +1,10 @@
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import React from "react";
+import { useNavigation } from "expo-router";
+import Product from "./HomeScreen/Product";
 
-const Items = ({ userPostList, type, discount }: any) => {
+const Items = ({ userPostList, type }: any) => {
+  const navigation = useNavigation<any>();
   // Limit words function to handle non-string and string input
   const limitWords = (str: any, limit: number) => {
     // Convert to string if it's a number or another type
@@ -29,12 +32,13 @@ const Items = ({ userPostList, type, discount }: any) => {
         <FlatList
           data={userPostList}
           numColumns={2}
-          showsHorizontalScrollIndicator={true}
+          showsHorizontalScrollIndicator={false}
           pagingEnabled={true}
           renderItem={({ item }) => (
             <TouchableOpacity
               className="p-1 justify-center self-center
             border-[3px] border-gray-200 bg-white rounded-3xl"
+              onPress={() => navigation.navigate("Details", { product: item })}
             >
               <Image
                 source={{ uri: item.image }}
@@ -46,9 +50,9 @@ const Items = ({ userPostList, type, discount }: any) => {
                 {limitWords(item.title, 4)}
               </Text>
               <Text className="font-bold text-orange-400">
-                ${(item.price - (item.price * discount) / 100).toFixed(0)}
+                ${(item.price - (item.price * item.discount) / 100).toFixed(0)}
               </Text>
-              {discount ? (
+              {item.discount != 0 ? (
                 <Text
                   className="text-gray-400 font-bold"
                   style={{ textDecorationLine: "line-through" }}

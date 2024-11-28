@@ -121,8 +121,9 @@ export default function AddPostScreen() {
               address: "",
               price: "",
               userName: "",
-              UserEmail: "",
+              userEmail: "",
               userImage: "",
+              discount: "",
               createdAt: Date.now(),
             }}
             onSubmit={(value) => onSubmitMethod(value)}
@@ -166,6 +167,14 @@ export default function AddPostScreen() {
                   type: "error",
                   text1: "Validation Error",
                   text2: "Image is required!",
+                });
+              }
+              if (!values.discount) {
+                errors = true;
+                Toast.show({
+                  type: "error",
+                  text1: "Validation Error",
+                  text2: "Discount is required!",
                 });
               }
               if (errors) throw new Error("Validation errors!");
@@ -252,6 +261,14 @@ export default function AddPostScreen() {
                     value={values?.price}
                     keyboardType="number-pad"
                     onChangeText={handleChange("price")}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Discount in % - put 0 if none"
+                    placeholderTextColor="#242424"
+                    value={values?.discount}
+                    keyboardType="number-pad"
+                    onChangeText={handleChange("discount")}
                   />
                   <Text className="text-[4vw] text-center mt-5">
                     Select Category
