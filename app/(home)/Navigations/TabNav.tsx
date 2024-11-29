@@ -73,7 +73,7 @@ export default function TabNav() {
           options={{
             tabBarLabel: ({ color }) => (
               <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
-                Profile
+                Cart
               </Text>
             ),
             tabBarIcon: ({ color, size }) => (
