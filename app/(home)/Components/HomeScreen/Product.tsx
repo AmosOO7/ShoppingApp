@@ -1,4 +1,11 @@
-import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { useNavigation } from "expo-router";
 
@@ -15,7 +22,7 @@ export default function Product({ userPostList, type }: any) {
   };
 
   return (
-    <View className=" flex-1">
+    <TouchableOpacity activeOpacity={1} className="flex-1">
       <Text className="font-bold text-[5vw] self-center justify-center text-center pt-5">
         {type}
       </Text>
@@ -38,9 +45,20 @@ export default function Product({ userPostList, type }: any) {
               <Text className="mt-1 font-bold">
                 {limitWords(item.title, 2)}
               </Text>
-              <Text className="font-bold text-orange-400">
-                ${(item.price - (item.price * item.discount) / 100).toFixed(0)}
-              </Text>
+              <View className="flex-row">
+                <Text className="font-bold text-orange-400 text-[20px]">
+                  $
+                  {(item.price - (item.price * item.discount) / 100).toFixed(0)}
+                </Text>
+                {item.discount != 0 ? (
+                  <Text className="font-bold text-orange-400 text-[12px]">
+                    {" "}
+                    {item.discount}% off
+                  </Text>
+                ) : (
+                  <Text></Text>
+                )}
+              </View>
               {item.discount != 0 ? (
                 <Text
                   className="text-gray-400 font-bold"
@@ -56,6 +74,6 @@ export default function Product({ userPostList, type }: any) {
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

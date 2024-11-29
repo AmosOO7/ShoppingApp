@@ -11,17 +11,26 @@ import Header from "../Components/HomeScreen/Header";
 import Slider from "../Components/HomeScreen/Slider";
 import Categories from "../Components/HomeScreen/Categories";
 import { app } from "@/firebaseConfig";
-import { collection, getDocs, getFirestore, orderBy } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import Product from "../Components/HomeScreen/Product";
 
 export default function HomeSceen() {
   const [categoryList, setCategoryList] = useState<any[]>([]);
   const [sliderList, setSliderList] = useState<any[]>([]);
   const [userPostList, setUserPostList] = useState<any[]>([]);
+  const [discount, setDiscount] = useState<any[]>([]);
   useEffect(() => {
     getSliders();
     getCategoryList();
     getUserPostList();
+    getDiscount();
   }, []);
 
   const db = getFirestore(app);
@@ -48,6 +57,17 @@ export default function HomeSceen() {
       setUserPostList((userPostList) => [...userPostList, doc.data()]);
     });
   };
+  const getDiscount = async () => {
+    setDiscount([]);
+    const q = query(
+      collection(db, "UserPost"), // First argument: Collection reference
+      where("discount", "!=", "0") // Second argument: Where clause
+    );
+    const snapshot = await getDocs(q);
+    snapshot.forEach((doc) => {
+      setDiscount((discount) => [...discount, doc.data()]);
+    });
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -59,12 +79,8 @@ export default function HomeSceen() {
           {/* Categories */}
           <Categories categoryList={categoryList} />
           {/* product */}
-          <Product userPostList={userPostList} type={"Products"} discount={0} />
-          <Product
-            userPostList={userPostList}
-            type={"Discounted Products"}
-            discount={5}
-          />
+          <Product userPostList={userPostList} type={"Products"} />
+          <Product userPostList={discount} type={"Discounted Products"} />
         </ScrollView>
       </View>
     </TouchableWithoutFeedback>

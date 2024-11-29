@@ -21,8 +21,8 @@ export default function ExploreScreen() {
   return (
     <ScrollView className="flex-1 pb-12 bg-gray-200">
       <Header />
-      <Items userPostList={userPostList} discount={5} />
-      <Items userPostList={userPostList} discount={0} />
+      <Items userPostList={userPostList} />
+      <Items userPostList={userPostList} />
     </ScrollView>
   );
 }

@@ -49,9 +49,20 @@ const Items = ({ userPostList, type }: any) => {
               <Text className="mt-1 font-bold">
                 {limitWords(item.title, 4)}
               </Text>
-              <Text className="font-bold text-orange-400">
-                ${(item.price - (item.price * item.discount) / 100).toFixed(0)}
-              </Text>
+              <View className="flex-row">
+                <Text className="font-bold text-orange-400 text-[20px]">
+                  $
+                  {(item.price - (item.price * item.discount) / 100).toFixed(0)}
+                </Text>
+                {item.discount != 0 ? (
+                  <Text className="font-bold text-orange-400 text-[12px]">
+                    {" "}
+                    {item.discount}% off
+                  </Text>
+                ) : (
+                  <Text></Text>
+                )}
+              </View>
               {item.discount != 0 ? (
                 <Text
                   className="text-gray-400 font-bold"

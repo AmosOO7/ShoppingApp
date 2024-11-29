@@ -23,7 +23,7 @@ const LoginScreen = () => {
     }
   }, []);
   return (
-    <ScrollView className="flex-1">
+    <View className="flex-1">
       <Image
         source={require("../../../assets/images/ProjectImages/ecommerce.png")}
         className="w-full h-[60%] object-cover"
@@ -43,7 +43,7 @@ const LoginScreen = () => {
           <Text className="text-white text-center text-[3vw]">Get Started</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

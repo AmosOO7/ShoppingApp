@@ -32,7 +32,7 @@ const ItemsScreen = () => {
   };
   return (
     <View className="flex-1 flex-row flex-wrap justify-center">
-      <Items userPostList={itemList} discount={0} />
+      <Items userPostList={itemList} />
     </View>
   );
 };

@@ -6,7 +6,10 @@ export default function Categories({ categoryList }: any) {
   const navigation = useNavigation<any>();
 
   return (
-    <View className="mt-3 bg-orange-400 h-[400px]">
+    <TouchableOpacity
+      activeOpacity={1}
+      className="mt-3 bg-orange-400 h-[400px]"
+    >
       <Text className="font-bold text-[5vw] text-center text-white pt-10">
         Categories
       </Text>
@@ -33,6 +36,6 @@ export default function Categories({ categoryList }: any) {
           )}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

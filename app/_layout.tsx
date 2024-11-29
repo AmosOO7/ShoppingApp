@@ -3,6 +3,7 @@ import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { Slot } from "expo-router";
 // Import your global CSS file
 import "../global.css";
+import { CartProvider } from "./(home)/Components/CartContext";
 
 export default function RootLayout() {
   const tokenCache = {
@@ -37,15 +38,17 @@ export default function RootLayout() {
   }
 
   return (
-    <ClerkProvider
-      tokenCache={tokenCache}
-      publishableKey={
-        "pk_test_bm90ZWQtcGlyYW5oYS04Ni5jbGVyay5hY2NvdW50cy5kZXYk"
-      }
-    >
-      <ClerkLoaded>
-        <Slot />
-      </ClerkLoaded>
-    </ClerkProvider>
+    <CartProvider>
+      <ClerkProvider
+        tokenCache={tokenCache}
+        publishableKey={
+          "pk_test_bm90ZWQtcGlyYW5oYS04Ni5jbGVyay5hY2NvdW50cy5kZXYk"
+        }
+      >
+        <ClerkLoaded>
+          <Slot />
+        </ClerkLoaded>
+      </ClerkProvider>
+    </CartProvider>
   );
 }

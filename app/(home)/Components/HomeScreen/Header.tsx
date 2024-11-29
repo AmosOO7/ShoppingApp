@@ -6,7 +6,11 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export default function Header() {
   const { user } = useUser();
   return (
-    <View className="pl-10 pr-10 flex-row gap-4 justify-center self-center pt-16 pb-3 bg-orange-400">
+    <View
+      className="pl-10 pr-10 flex-row gap-4 
+    justify-start self-center pt-16 pb-3 
+    bg-orange-400 w-full"
+    >
       {/* user info section */}
       <View className="flex-row items-center ">
         <Image

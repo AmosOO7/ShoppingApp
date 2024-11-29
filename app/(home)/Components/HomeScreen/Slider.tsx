@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, FlatList, Image } from "react-native";
+import { View, FlatList, Image, TouchableOpacity } from "react-native";
 
 export default function Slider(prop: any) {
   const flatListRef = useRef<FlatList>(null); // Reference for the FlatList
@@ -24,7 +24,7 @@ export default function Slider(prop: any) {
   }, [currentIndex, sliderList.length]);
 
   return (
-    <View className="mt-5 pl-1 pr-1  ">
+    <TouchableOpacity activeOpacity={1} className="mt-5 pl-1 pr-1  ">
       <FlatList
         ref={flatListRef} // Attach ref to FlatList
         data={sliderList}
@@ -41,6 +41,6 @@ export default function Slider(prop: any) {
         )}
         keyExtractor={(item, index) => index.toString()}
       />
-    </View>
+    </TouchableOpacity>
   );
 }

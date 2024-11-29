@@ -1,9 +1,8 @@
 import { View, Image, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 import ItemDetail from "../Components/ItemDetail";
-export default function ItemDetailScreen() {
+export default function ItemDetailScreen({ navigation }: any) {
   const { params } = useRoute<any>();
   const [product, setProduct] = useState<any>([]);
   useEffect(() => {
@@ -11,7 +10,7 @@ export default function ItemDetailScreen() {
   });
   return (
     <View className="p-4 flex-1 ">
-      <ItemDetail discount={3} />
+      <ItemDetail />
     </View>
   );
 }
