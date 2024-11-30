@@ -9,18 +9,29 @@ function generateUniqueId() {
 }
 
 export default function ItemDetail() {
-  const [count, setCount] = useState(0);
   const { params } = useRoute<any>();
   const [product, setProduct] = useState<any>([]);
 
-  const { addToCart, removeFromCart } = useCart(); // Access cart functions
+  const { cart, count, addToCart, removeFromCart, check, checkProduct } =
+    useCart(); // Access cart functions
 
   useEffect(() => {
+    // Set the product data when route params are received
     params && setProduct(params.product);
   }, [params]);
 
   return (
     <View className="p-4 flex-1">
+      <View className="mb-[-40px] self-end">
+        {/* Display the check count (number of times the product was added) */}
+        {check >= 0 ? (
+          <TouchableOpacity>
+            <Text className="text-[40px] font-bold">{check + 1}</Text>
+          </TouchableOpacity>
+        ) : (
+          <Text className="text-[40px] font-bold">0</Text>
+        )}
+      </View>
       <Image
         source={{ uri: product.image }}
         className="h-[350px] w-[80%] rounded-2xl self-center justify-center"
@@ -36,7 +47,6 @@ export default function ItemDetail() {
         </Text>
         {product.discount !== 0 && (
           <Text className="font-bold text-orange-400 text-[12px]">
-            {" "}
             {product.discount}% off
           </Text>
         )}
@@ -49,39 +59,39 @@ export default function ItemDetail() {
           ${product.price}
         </Text>
       )}
+
       <Text className="font-bold pt-2 text-[20px]">Description</Text>
       <Text className="pt-4 h-[15%]">{product.desc}</Text>
       <Text className="font-bold pt-4 pb-1">Posted by: {product.userName}</Text>
-      <View className="self-center justify-center rounded-2xl p-4 bg-orange-400 w-[80%] flex-row gap-40">
-        {/* Add Button */}
-        <TouchableOpacity
-          onPress={() => {
-            const uniqueId = generateUniqueId();
-            addToCart({ ...product, id: uniqueId });
-            setCount(count + 1);
-          }}
-        >
-          <Text className="text-orange-400 text-center font-bold text-[30px] w-[50px] rounded-xl bg-white">
-            +
-          </Text>
-        </TouchableOpacity>
-
-        {/* Count Display */}
-        <Text className="text-white font-bold text-center text-[30px]">
-          {count}
-        </Text>
-
+      <View className="self-center justify-center rounded-2xl p-4 bg-orange-400 w-[80%] flex-row gap-10">
         {/* Remove Button */}
         <TouchableOpacity
           onPress={() => {
             if (count > 0) {
               removeFromCart(product.id);
-              setCount(count - 1);
             }
           }}
         >
           <Text className="text-orange-400 text-center font-bold text-[30px] w-[50px] rounded-xl bg-white">
             -
+          </Text>
+        </TouchableOpacity>
+
+        {/* Count Display */}
+        <Text className="text-white font-bold text-center text-[30px]">
+          {count} item(s) in Cart
+        </Text>
+
+        {/* Add Button */}
+        <TouchableOpacity
+          onPress={() => {
+            const uniqueId = generateUniqueId();
+            addToCart({ ...product, id: uniqueId });
+            checkProduct(product); // Update the check count
+          }}
+        >
+          <Text className="text-orange-400 text-center font-bold text-[30px] w-[50px] rounded-xl bg-white">
+            +
           </Text>
         </TouchableOpacity>
       </View>

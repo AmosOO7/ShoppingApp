@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 // Define the shape of the cart item
 type CartItem = {
@@ -14,9 +20,12 @@ type CartItem = {
 
 // Define the context type
 type CartContextType = {
+  check: number;
+  count: number;
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
+  checkProduct: any;
 };
 
 // Create the Cart Context
@@ -27,27 +36,48 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [count, setCount] = useState(0); // Initialize count to 0
+  const [check, setCheck] = useState(0);
+
+  useEffect(() => {
+    setCheck(check - 1);
+  }, []);
+
+  // Function to check if product is already in the cart
+  const checkProduct = (pro: any) => {
+    // Iterate through the cart to check for matching title
+    const existingProduct = cart.filter((item) => item.title === pro.title);
+
+    if (existingProduct.length > 0) {
+      // If the product is found in the cart, update check with the count of matching products
+      setCheck(existingProduct.length);
+    } else {
+      // If not found, reset the check count to 0
+      setCheck(0);
+    }
+  };
 
   // Function to add an item to the cart
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => [...prevCart, item]);
-    console.log("Cart after adding:", [...cart, item]); // Log after updating
+    setCount((prevCount) => prevCount + 1); // Increment the count when an item is added
   };
 
   // Function to remove an item from the cart by ID
   const removeFromCart = (id: string) => {
-    // Log the id passed
-    if (cart.length > 0) {
-      const itemToRemove: any = cart.find(
-        (item) => item.id === cart[cart.length - 1].id
-      );
-      setCart(cart.filter((item) => item.id !== itemToRemove.id));
-    }
-    console.log(cart);
+    // Filter out the item by the exact ID passed in
+    const updatedCart = cart.filter((item) => item.id !== id);
+
+    // Update the cart and count
+    setCart(updatedCart);
+    setCount(updatedCart.length); // Update the count to reflect the new cart size
+    setCheck(check - 1);
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ count, cart, addToCart, removeFromCart, check, checkProduct }}
+    >
       {children}
     </CartContext.Provider>
   );
