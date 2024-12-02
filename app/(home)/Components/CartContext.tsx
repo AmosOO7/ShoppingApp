@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the shape of the cart item
 type CartItem = {
@@ -25,7 +19,7 @@ type CartContextType = {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
-  checkProduct: any;
+  checkProduct: (pro: CartItem) => void;
 };
 
 // Create the Cart Context
@@ -39,38 +33,24 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const [count, setCount] = useState(0); // Initialize count to 0
   const [check, setCheck] = useState(0);
 
-  useEffect(() => {
-    setCheck(check - 1);
-  }, []);
-
-  // Function to check if product is already in the cart
-  const checkProduct = (pro: any) => {
-    // Iterate through the cart to check for matching title
-    const existingProduct = cart.filter((item) => item.title === pro.title);
-
-    if (existingProduct.length > 0) {
-      // If the product is found in the cart, update check with the count of matching products
-      setCheck(existingProduct.length);
-    } else {
-      // If not found, reset the check count to 0
-      setCheck(0);
-    }
+  // Function to check if a product is already in the cart
+  const checkProduct = (pro: CartItem) => {
+    const existingProducts = cart.filter((item) => item.title === pro.title);
+    setCheck(existingProducts.length); // Update the check count
   };
 
   // Function to add an item to the cart
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => [...prevCart, item]);
     setCount((prevCount) => prevCount + 1); // Increment the count when an item is added
+    checkProduct(item); // Update check after adding
   };
 
   // Function to remove an item from the cart by ID
   const removeFromCart = (id: string) => {
-    // Filter out the item by the exact ID passed in
-    const updatedCart = cart.filter((item) => item.id !== id);
-
-    // Update the cart and count
+    const updatedCart = cart.filter((item) => item.id !== id); // Filter out the item by ID
     setCart(updatedCart);
-    setCount(updatedCart.length); // Update the count to reflect the new cart size
+    setCount(updatedCart.length); // Update the count
     setCheck(check - 1);
   };
 

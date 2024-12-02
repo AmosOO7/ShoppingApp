@@ -47,6 +47,7 @@ const CartScreen = () => {
                   <TouchableOpacity
                     onPress={() => {
                       removeFromCart(item.id);
+                      console.log("Cart removal-------", item.id);
                     }}
                   >
                     <Text className="text-orange-400 text-center font-bold text-[10px] w-[100%] p-2 rounded-xl bg-white">

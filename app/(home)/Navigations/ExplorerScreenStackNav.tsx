@@ -3,10 +3,10 @@ import {
   StackNavigationOptions,
 } from "@react-navigation/stack";
 import React from "react";
-import HomeSceen from "../Screens/HomeSceen";
-import ItemsScreen from "../Screens/ItemsScreen";
+
 import ItemDetailScreen from "../Screens/ItemDetailScreen";
 import ExploreScreen from "../Screens/ExploreScreen";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type RootStackParamList = {
   explorer: undefined;
@@ -27,15 +27,23 @@ export default function ExplorerScreenStackNav() {
       />
       <MyStack.Screen
         name="Details"
-        options={{
-          headerLeft: () => null,
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={40}
+              color="black"
+            />
+          ),
+
           headerStyle: {
             backgroundColor: "#fb923c",
           },
           headerTitleStyle: {
             color: "white", // Optional: Change header text color for better contrast
           },
-        }}
+        })}
         component={ItemDetailScreen}
       />
     </MyStack.Navigator>

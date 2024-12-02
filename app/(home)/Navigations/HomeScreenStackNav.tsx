@@ -6,9 +6,7 @@ import React from "react";
 import HomeSceen from "../Screens/HomeSceen";
 import ItemsScreen from "../Screens/ItemsScreen";
 import ItemDetailScreen from "../Screens/ItemDetailScreen";
-import { Button, Text, TouchableOpacity } from "react-native";
-import CartScreen from "../Screens/CartScreen";
-import ExploreScreen from "../Screens/ExploreScreen";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type RootStackParamList = {
   Home: undefined;
@@ -34,10 +32,17 @@ export default function HomeScreenStackNav() {
       <MyStack.Screen
         name="item-list"
         component={ItemsScreen}
-        options={({ route }) => {
+        options={({ route, navigation }) => {
           const category = route.params?.category ?? "Item List"; // Provide a default title if category is undefined
           return {
-            headerLeft: () => null,
+            headerLeft: () => (
+              <Ionicons
+                onPress={() => navigation.goBack()}
+                name="arrow-back"
+                size={40}
+                color="black"
+              />
+            ),
             title: category,
             headerStyle: {
               backgroundColor: "#fb923c",
@@ -50,29 +55,23 @@ export default function HomeScreenStackNav() {
       />
       <MyStack.Screen
         name="Details"
-        options={{
-          headerLeft: () => null,
-          headerStyle: {
-            backgroundColor: "#fb923c",
-          },
-          headerTitleStyle: {
-            color: "white", // Optional: Change header text color for better contrast
-          },
-        }}
         component={ItemDetailScreen}
-      />
-      <MyStack.Screen
-        name="Cart"
-        options={{
-          headerLeft: () => null,
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={40}
+              color="black"
+            />
+          ),
           headerStyle: {
             backgroundColor: "#fb923c",
           },
           headerTitleStyle: {
             color: "white", // Optional: Change header text color for better contrast
           },
-        }}
-        component={ExploreScreen}
+        })}
       />
     </MyStack.Navigator>
   );
