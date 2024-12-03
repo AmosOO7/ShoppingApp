@@ -16,72 +16,123 @@ import { CartProvider } from "../Components/CartContext";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import CartScreen from "../Screens/CartScreen";
+import { useUser } from "@clerk/clerk-expo";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNav() {
+  const { user } = useUser();
   return (
     <View className="flex-1">
-      <Tab.Navigator
-        screenOptions={{ headerShown: false, tabBarActiveTintColor: "#000" }}
-      >
-        <Tab.Screen
-          name="home-nav"
-          component={HomeScreenStackNav}
-          options={{
-            tabBarLabel: ({ color }) => (
-              <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
-                Home
-              </Text>
-            ),
-            tabBarIcon: ({ color, size }) => (
-              <Entypo name="home" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="explore-nav"
-          component={ExplorerScreenStackNav}
-          options={{
-            tabBarLabel: ({ color }) => (
-              <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
-                Explore
-              </Text>
-            ),
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="search" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="add"
-          component={AddPostScreen}
-          options={{
-            tabBarLabel: ({ color }) => (
-              <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
-                Add Items
-              </Text>
-            ),
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="add-circle" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="cart"
-          component={CartScreen}
-          options={{
-            tabBarLabel: ({ color }) => (
-              <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
-                Cart
-              </Text>
-            ),
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="cart-outline" size={size} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      {user?.primaryEmailAddress?.emailAddress == "ayokunene@gmail.com" ? (
+        <Tab.Navigator
+          screenOptions={{ headerShown: false, tabBarActiveTintColor: "#000" }}
+        >
+          <Tab.Screen
+            name="home-nav"
+            component={HomeScreenStackNav}
+            options={{
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
+                  Home
+                </Text>
+              ),
+              tabBarIcon: ({ color, size }) => (
+                <Entypo name="home" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="explore-nav"
+            component={ExplorerScreenStackNav}
+            options={{
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
+                  Explore
+                </Text>
+              ),
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="search" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="add"
+            component={AddPostScreen}
+            options={{
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
+                  Add Items
+                </Text>
+              ),
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="add-circle" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="cart"
+            component={CartScreen}
+            options={{
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
+                  Cart
+                </Text>
+              ),
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="cart-outline" size={size} color={color} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      ) : (
+        <Tab.Navigator
+          screenOptions={{ headerShown: false, tabBarActiveTintColor: "#000" }}
+        >
+          <Tab.Screen
+            name="home-nav"
+            component={HomeScreenStackNav}
+            options={{
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
+                  Home
+                </Text>
+              ),
+              tabBarIcon: ({ color, size }) => (
+                <Entypo name="home" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="explore-nav"
+            component={ExplorerScreenStackNav}
+            options={{
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
+                  Explore
+                </Text>
+              ),
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="search" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="cart"
+            component={CartScreen}
+            options={{
+              tabBarLabel: ({ color }) => (
+                <Text style={{ color: color, fontSize: 12, marginBottom: 10 }}>
+                  Cart
+                </Text>
+              ),
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="cart-outline" size={size} color={color} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      )}
     </View>
   );
 }

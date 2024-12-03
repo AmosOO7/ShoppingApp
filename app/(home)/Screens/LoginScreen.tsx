@@ -31,10 +31,10 @@ const LoginScreen = () => {
       <View className="p-[8vw] bg-white mt-[-7vh] rounded-t-3xl h-[50vh]">
         <Text className="text-[7vw] text-center">E-Commerca</Text>
         <Text className="text-[3vw] text-slate-500 mt-6 text-center">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta
-          corrupti tempora, eum dolor earum optio nobis id cum ipsa, molestiae
-          ut placeat ex amet consequatur. Tenetur dolorum similique consequatur
-          maxime!
+          Welcome to E-Commerca – Your One-Stop Shopping Destination! Discover a
+          world of endless possibilities with our carefully curated collection
+          of products. Whether you're looking for the latest fashion trends,
+          cutting-edge electronics, or home essentials, we've got you covered
         </Text>
         <TouchableOpacity
           onPress={onPress}
