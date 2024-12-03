@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 // Define the shape of the cart item
 type CartItem = {
@@ -32,6 +38,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const [cart, setCart] = useState<CartItem[]>([]);
   const [count, setCount] = useState(0); // Initialize count to 0
   const [check, setCheck] = useState(0);
+
+  useEffect(() => {
+    setCheck(check - 1);
+  }, []);
 
   // Function to check if a product is already in the cart
   const checkProduct = (pro: CartItem) => {

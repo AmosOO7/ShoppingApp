@@ -2,7 +2,7 @@ import { View, Image, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import ItemDetail from "../Components/ItemDetail";
-export default function ItemDetailScreen({ navigation }: any) {
+export default function ItemDetailScreen() {
   const { params } = useRoute<any>();
   const [product, setProduct] = useState<any>([]);
   useEffect(() => {
