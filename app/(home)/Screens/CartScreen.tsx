@@ -1,22 +1,14 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import React from "react";
-import { useOAuth } from "@clerk/clerk-expo";
-import * as Linking from "expo-linking";
 import { useCart } from "../Components/CartContext";
 
 const CartScreen = () => {
-  const { cart, removeFromCart } = useCart();
+  const { addToCart, cart, removeFromCart } = useCart(); // Removed check, as it's not needed for the entire cart
+
   return (
     <View className="flex-1 h-full pt-16 pr-4 pl-4">
       {cart.length > 0 ? (
-        <View className="">
+        <View>
           <Text className="font-bold text-[20px] text-center pb-4">
             Cart Items
           </Text>
@@ -25,6 +17,7 @@ const CartScreen = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View className="flex-row pb-10 gap-4">
+                {/* Product Image and Details */}
                 <View>
                   <Image
                     source={{ uri: item.image }}
@@ -37,21 +30,37 @@ const CartScreen = () => {
                       {(
                         item.price -
                         (item.price * item.discount) / 100
-                      ).toFixed(0)}
+                      ).toFixed(2)}
                     </Text>
                   </View>
                 </View>
 
-                <View className="self-center justify-center rounded-2xl p-4 bg-orange-400 w-[40%] gap-40">
-                  {/* Remove Button */}
+                {/* Quantity Controls */}
+                <View className="self-center justify-center rounded-2xl p-4 bg-orange-400 w-[40%] flex-row gap-4">
+                  {/* Remove from Cart */}
                   <TouchableOpacity
                     onPress={() => {
-                      removeFromCart(item.id);
-                      console.log("Cart removal-------", item.id);
+                      removeFromCart(item.title);
                     }}
                   >
-                    <Text className="text-orange-400 text-center font-bold text-[10px] w-[100%] p-2 rounded-xl bg-white">
-                      Revove From Cart
+                    <Text className="text-orange-400 text-center font-bold text-[30px] w-[50px] rounded-xl bg-white">
+                      -
+                    </Text>
+                  </TouchableOpacity>
+
+                  {/* Item Quantity */}
+                  <Text className="text-white font-bold text-center text-[30px]">
+                    {item.quantity}
+                  </Text>
+
+                  {/* Add to Cart */}
+                  <TouchableOpacity
+                    onPress={() => {
+                      addToCart(item);
+                    }}
+                  >
+                    <Text className="text-orange-400 text-center font-bold text-[30px] w-[50px] rounded-xl bg-white">
+                      +
                     </Text>
                   </TouchableOpacity>
                 </View>

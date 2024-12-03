@@ -8,6 +8,7 @@ import ItemsScreen from "../Screens/ItemsScreen";
 import ItemDetailScreen from "../Screens/ItemDetailScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ProfileScreen from "../Screens/ProfileScreen";
+import Description from "../Components/Description";
 
 type RootStackParamList = {
   Home: undefined;
@@ -16,6 +17,7 @@ type RootStackParamList = {
   Profile: { category: string };
   item: { category: string };
   Cart: { category: string };
+  Description: { category: string };
 };
 
 const MyStack = createStackNavigator<RootStackParamList>();
@@ -78,6 +80,26 @@ export default function HomeScreenStackNav() {
       <MyStack.Screen
         name="Profile"
         component={ProfileScreen}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={40}
+              color="black"
+            />
+          ),
+          headerStyle: {
+            backgroundColor: "#fb923c",
+          },
+          headerTitleStyle: {
+            color: "white", // Optional: Change header text color for better contrast
+          },
+        })}
+      />
+      <MyStack.Screen
+        name="Description"
+        component={Description}
         options={({ navigation }) => ({
           headerLeft: () => (
             <Ionicons
