@@ -52,7 +52,7 @@ export default function ItemDetail() {
           {(
             product?.price -
             (product?.price * product?.discount) / 100
-          ).toFixed(2)}
+          ).toFixed(0)}
         </Text>
         {product?.discount !== 0 && (
           <Text className="font-bold text-orange-400 text-[12px]">
