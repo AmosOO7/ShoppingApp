@@ -23,6 +23,7 @@ type CartItem = {
 type CartContextType = {
   check: number;
   count: number;
+  grandTotal: number;
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (title: string) => void; // Remove item by title
@@ -39,10 +40,24 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const [cart, setCart] = useState<CartItem[]>([]);
   const [count, setCount] = useState(0); // Total items in the cart
   const [check, setCheck] = useState(0); // Check count for current product
+  const [grandTotal, setGrandTotal] = useState(0);
 
   useEffect(() => {
     setCheck(check - 1);
   }, []);
+
+  useEffect(() => {
+    calculateGrandTotal();
+  }, [cart]);
+
+  // Calculate the grand total whenever the cart is updated
+  const calculateGrandTotal = () => {
+    const total = cart.reduce((acc, item) => {
+      const discountedPrice = item.price - (item.price * item.discount) / 100;
+      return acc + discountedPrice * item.quantity;
+    }, 0);
+    setGrandTotal(total);
+  };
 
   // Function to check if a product is already in the cart
   const checkProduct = (pro: CartItem) => {
@@ -98,6 +113,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
           const updatedCart = prevCart.filter((item) => item.title !== title);
           setCount((prevCount) => prevCount - 1); // Decrease total count
           setCheck(0); // Reset check count
+          setGrandTotal(grandTotal);
           return updatedCart;
         }
       }
@@ -115,6 +131,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
         check,
         checkProduct,
         setCheck,
+        grandTotal,
       }}
     >
       {children}
