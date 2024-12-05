@@ -21,8 +21,8 @@ NewApp is a modern mobile application built with React Native and Expo. It provi
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/username/newApp.git
-   cd newApp
+   git clone https://github.com/AmosOO7/ShoppingApp.git
+   cd ShoppingApp
    ```
 
 2. Install dependencies:
