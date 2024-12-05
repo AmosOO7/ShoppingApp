@@ -49,7 +49,4 @@ Running the App
 2. Open the Expo Go app and scan the QR code or run the app in an emulator.
 
 
-
-![1](https://github.com/user-attachments/assets/835104d9-20e5-4c4c-a872-1c3c11fbaaf6)    ![2](https://github.com/user-attachments/assets/4fe47335-2ed9-4140-98e2-46b73bf1ed2d)    ![3](https://github.com/user-attachments/assets/a7bba777-5b49-4cc7-bfab-ef4407a35e57)     ![4](https://github.com/user-attachments/assets/380a5642-c7b7-4491-b85c-d9c1174365df)    ![5](https://github.com/user-attachments/assets/1e83a459-6b7c-4b24-9f58-eb0981cdc873)    ![6](https://github.com/user-attachments/assets/04bca0ec-e169-4cf9-95d3-29d14fb99697)    ![7](https://github.com/user-attachments/assets/b37989d9-fc12-41e0-b720-363838d107ef)
-
-https://github.com/user-attachments/assets/b95cf6aa-6ec6-4b47-9bbb-c6c44ed0f4a4
+![10](https://github.com/user-attachments/assets/e652e711-84bc-40e5-95a6-0f58e56ed93d)
